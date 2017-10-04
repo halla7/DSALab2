@@ -32,14 +32,23 @@ public class ArrayList<T> implements MyList<T>{
 	@Override
 	public boolean clear() {
 		
-		T[] empty = (T[]) new T;
+		empty = (T[]) new Object[0];
 		array = empty;
 		return false;
 	}
 
 	@Override
 	public boolean contains(T t) {
-		return false;
+		boolean flag = false;
+		for(int i = 0; i < array.length; i++) {
+			if(array[i].equals(t)) {
+				flag = true;
+			}
+			else {
+				flag = false;
+			}
+		}
+		return flag;
 	}
 
 	@Override
@@ -89,6 +98,16 @@ public class ArrayList<T> implements MyList<T>{
 
 	@Override
 	public boolean swap(int position1, int position2) {
+		if(position1 < 1 || position 1 > array.length || position2 < 1 || position1 < array.length) {
+			throw new 
+				IndexOutOfBoundsException(index + " < 0 or >= " + count);
+		}
+		else {
+			T item1 = array[position1];
+			T item2 = array[position2];
+			array[position1] = item2;
+			array[position2] = item1;
+		}
 		return false;
 	}
 
