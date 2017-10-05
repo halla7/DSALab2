@@ -1,4 +1,4 @@
-// just a comment
+
 public class Song {
 	private String name, artist;
 	private float playtime;
