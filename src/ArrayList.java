@@ -166,7 +166,7 @@ public class ArrayList<T> implements MyList<T>{
 	public boolean swap(int position1, int position2) {
 		if(position1 < 1 || position1 > array.length || position2 < 1 || position1 < array.length) {
 			throw new 
-				IndexOutOfBoundsException(position1 + " < 0 or >= " + count);
+			IndexOutOfBoundsException(position1 + " < 0 or >= " + count);	
 		}
 		else {
 			T item1 = array[position1];
