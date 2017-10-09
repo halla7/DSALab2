@@ -1,6 +1,6 @@
 
 public class ArrayList<T> implements MyList<T>{
-	
+	//test
 	private int count;
 	private T myItem;
 	private T[] array;
@@ -12,14 +12,29 @@ public class ArrayList<T> implements MyList<T>{
 			throw new
 				IndexOutOfBoundsException(index + " < 0 or >= " + count);
 		}
+		if (count == array.length) {
+			doubleSize();
+			array[index] = t;
+			count++;
+		}
 		else {
 			array[index] = t;
+			count++;
 		}
 		return false;
 	}
-
+	@SuppressWarnings("unchecked")
+	public void doubleSize() {
+		array = (T[]) new Object[array.length * 2];
+	}
 	@Override
 	public boolean add(T t) {
+		if(count == array.length) {
+			doubleSize();
+			array[count + 1] = t;
+		} else {
+			array[count + 1] = t;
+		}
 		
 		return false;
 	}
@@ -27,81 +42,148 @@ public class ArrayList<T> implements MyList<T>{
 	@Override
 	public boolean clear() {
 		
-		T[] empty = (T[]) new T;
+		@SuppressWarnings("unchecked")
+		T[] empty = (T[]) new Object[0];
 		array = empty;
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean contains(T t) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean flag = false;
+		for(int i = 0; i < array.length; i++) {
+			if(array[i].equals(t)) {
+				flag = true;
+			}
+			else {
+				flag = false;
+			}
+		}
+		return flag;
 	}
 
 	@Override
 	public T get(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		if(index < 1 || index > count) {
+			myItem = null;
+			throw new
+			IndexOutOfBoundsException(index + " < 0 or >= " + count);
+			
+		} else {
+			myItem = array[index]; 
+		}
+		
+		return myItem;
 	}
 
 	@Override
 	public int indexOf(T t) {
-		// TODO Auto-generated method stub
-		return 0;
+		int returnValue = 0;
+		for(int i = 0; i < count; i++) {
+			if(array[i].equals(t)) {
+				returnValue = i;
+			} else {
+				returnValue = -1;
+			}
+		}
+		
+		return returnValue;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean flag = false;
+		if (count == 0) {
+			flag = true;
+		} else {
+			flag = false;
+		}
+		return flag;
 	}
 
 	@Override
 	public T remove(int index) {
-		// TODO Auto-generated method stub
+		if (index < 1 || index > count) {
+			throw new 
+			IndexOutOfBoundsException(index + " < 0 or >= " + count);
+		} else {
+			array[index] = null;
+		}
 		return null;
 	}
 
 	@Override
 	public T remove(T o) {
-		// TODO Auto-generated method stub
+		for(int i = 0; i < count; i++) {
+			if(array[i].equals(o)) {
+				array[i] = null;
+			}
+		}
 		return null;
 	}
 
 	@Override
-	public boolean set(int index, Object element) {
-		// TODO Auto-generated method stub
+	public boolean set(int index, T element) {
+		if(index < 1 || index > count) {
+			throw new 
+			IndexOutOfBoundsException(index + " < 0 or >= " + count);
+		} else {
+			array[index] = element;
+		}
+		
 		return false;
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
 		return count;
 	}
 
 	@Override
 	public MyList subList(int fromIndex, int toIndex) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList newList = new ArrayList();
+		if (fromIndex < 1 || fromIndex > count) {
+			throw new
+			IndexOutOfBoundsException(fromIndex + " < 0 or >= " + count);
+		}
+		if (toIndex < 1 || toIndex > count) {
+			throw new
+			IndexOutOfBoundsException(toIndex + " < 0 or >= " + count);
+		} else {
+		for(int i = fromIndex; i < toIndex; i++) {
+			newList.add(i, array[i]);
+			}
+		}
+		return newList;
 	}
 
 	@Override
 	public T[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+		return array;
 	}
 
 	@Override
 	public boolean swap(int position1, int position2) {
-		// TODO Auto-generated method stub
+		if(position1 < 1 || position1 > array.length || position2 < 1 || position1 < array.length) {
+			throw new 
+				IndexOutOfBoundsException(position1 + " < 0 or >= " + count);
+		}
+		else {
+			T item1 = array[position1];
+			T item2 = array[position2];
+			array[position1] = item2;
+			array[position2] = item1;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean shift(int positions) {
-		// TODO Auto-generated method stub
+		T[] temp = (T[]) new Object[count];
+		for(int i = 0; i < count; i++) {
+			temp[i + positions] = array[i];
+		}
+		array = temp;
 		return false;
 	}
 

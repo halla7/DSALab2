@@ -1,4 +1,4 @@
-// just a comment
+// text added 10/6/17
 public class Song {
 	private String name, artist;
 	private float playtime;
