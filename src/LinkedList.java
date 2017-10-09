@@ -1,6 +1,6 @@
 
 public class LinkedList<T> implements MyList<T> {
-//
+
 	private class Node<T> {
 		public T data;
 		public Node<T> next;
@@ -15,15 +15,17 @@ public class LinkedList<T> implements MyList<T> {
 	private Node<T> tail;
 	
 	public LinkedList() {
-		
+		size = 0;
+		head = null;
+		tail = null;
 	}
 	
 	@Override
 	public boolean add(int index, T t) {
-		if (index < 1 || index < size) {
+		if (index < 0 || index < size) {
 			throw new
 			IndexOutOfBoundsException(index + " < 0 or >= " + size);
-		} else if (index == size) {
+		} else if (index == size) {	
 			add(t);
 		} else if (index == 0) {
 			Node<T> n = new Node<T>(t);
@@ -44,28 +46,27 @@ public class LinkedList<T> implements MyList<T> {
 			
 		}
 		
-		
-	
 		return false;
 	}
 
 	@Override
 	public boolean add(T o) {
-		Node n = new Node(o);
+		Node<T> n = new Node<T>(o);
 		
-		if(size == 0) {
-			head = n;
+		if(size == 0) {		// If the list is empty
+			head = n;		// The first node is n
 		} else {
-			tail.next = n;
+			tail.next = n;	// if it is not empty, make the node after the last node = n 
 		}
-		tail = n;
+		tail = n;			// update the last node to be n
 		
-		size++;
+		size++;            // increment size
 		return true;
 	}
 
 	@Override
 	public boolean clear() {
+		// clear all fields;
 		head = null;
 		tail = null;
 		size = 0;
@@ -80,14 +81,32 @@ public class LinkedList<T> implements MyList<T> {
 
 	@Override
 	public T get(int index) {
-
-		return null;
+		Node<T> current = head;
+		for(int i = 0; i < index; i++) {
+			current = current.next;
+		}
+		return current.data;
 	}
 
 	@Override
 	public int indexOf(T o) {
-
-		return 0;
+		Node<T> current = head;
+		int index = 0;
+		while (current != null) {
+			if (o == null) {	// if o is null find null item in list
+				if(current.data == null) {	
+					return index;	
+				}
+			} else {
+				if(o.equals(current.data)) {	// if o 
+					return index;
+				}
+			}
+			index++;
+			current = current.next;
+		}
+		
+		return -1;
 	}
 
 	@Override
@@ -103,19 +122,39 @@ public class LinkedList<T> implements MyList<T> {
 
 	@Override
 	public T remove(int index) {
-		
+	
+		Node<T> current = head;
+		for (int i = 0; i < index; i++) {
+			current = current.next;
+		}
+			current.data = null;
+			size--;
 		return null;
 	}
 
 	@Override
 	public T remove(T o) {
-		// TODO Auto-generated method stub
+		int index = indexOf(o);
+		if (index != -1) {
+			remove(index);
+		}
+		
 		return null;
 	}
 
 	@Override
 	public boolean set(int index, T element) {
-		// TODO Auto-generated method stub
+		if (index < 0 || index > size) {
+			throw new 
+			IndexOutOfBoundsException(index + "is out of bounds.");
+		} else {
+		Node<T> current = head;
+		for (int i = 0; i < index; i++) {
+			current = current.next;
+		}
+			current.data = element;
+			size++;
+		}
 		return false;
 	}
 
@@ -126,25 +165,37 @@ public class LinkedList<T> implements MyList<T> {
 
 	@Override
 	public MyList subList(int fromIndex, int toIndex) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public T[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+		T[] array = (T[]) new Object[size];
+		
+		for(int i = 0; i < size; i++) {
+			head = head.next;
+			array[i] = head.data;
+		}
+		return array;
 	}
 
 	@Override
 	public boolean swap(int position1, int position2) {
-		// TODO Auto-generated method stub
+		Node<T> current = head;
+		for (int i = 0; i < size; i++) {
+			current = current.next;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean shift(int positions) {
-		// TODO Auto-generated method stub
+		T[] temp = toArray();
+		
+		for (int i = 0; i < size; i++) {
+			
+		}
 		return false;
 	}
 
