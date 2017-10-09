@@ -5,6 +5,11 @@ public class ArrayList<T> implements MyList<T>{
 	private T myItem;
 	private T[] array;
 	
+	@SuppressWarnings("unchecked")
+	public ArrayList() {
+		array = (T[]) new Object[10];
+		count = 0;
+	}
 	@Override
 	public boolean add(int index, T t) {
 		int i = index;
@@ -31,11 +36,11 @@ public class ArrayList<T> implements MyList<T>{
 	public boolean add(T t) {
 		if(count == array.length) {
 			doubleSize();
-			array[count + 1] = t;
+			array[count] = t;
 		} else {
-			array[count + 1] = t;
+			array[count] = t;
 		}
-		
+		 count++;
 		return false;
 	}
 	
@@ -64,7 +69,7 @@ public class ArrayList<T> implements MyList<T>{
 
 	@Override
 	public T get(int index) {
-		if(index < 1 || index > count) {
+		if(index < 0 || index > count) {
 			myItem = null;
 			throw new
 			IndexOutOfBoundsException(index + " < 0 or >= " + count);
@@ -103,11 +108,12 @@ public class ArrayList<T> implements MyList<T>{
 
 	@Override
 	public T remove(int index) {
-		if (index < 1 || index > count) {
+		if (index < 0 || index > count) {
 			throw new 
 			IndexOutOfBoundsException(index + " < 0 or >= " + count);
 		} else {
 			array[index] = null;
+			count--;
 		}
 		return null;
 	}
@@ -117,6 +123,8 @@ public class ArrayList<T> implements MyList<T>{
 		for(int i = 0; i < count; i++) {
 			if(array[i].equals(o)) {
 				array[i] = null;
+				count--;
+				i = count;
 			}
 		}
 		return null;
@@ -166,7 +174,7 @@ public class ArrayList<T> implements MyList<T>{
 	public boolean swap(int position1, int position2) {
 		if(position1 < 1 || position1 > array.length || position2 < 1 || position1 < array.length) {
 			throw new 
-				IndexOutOfBoundsException(position1 + " < 0 or >= " + count);
+			IndexOutOfBoundsException(position1 + " < 0 or >= " + count);	
 		}
 		else {
 			T item1 = array[position1];
@@ -188,3 +196,4 @@ public class ArrayList<T> implements MyList<T>{
 	}
 
 }
+
