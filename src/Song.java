@@ -1,12 +1,12 @@
 // just a comment
 public class Song {
 	private String name, artist;
-	private float playtime;
+	private double playtime;
 
 	
-	public Song(String mname, String martist, float mplaytime) {
+	public Song(String mname, String martist, double mplaytime) {
 		String name=mname,artist=martist;
-		float playtime=mplaytime;
+		double playtime=mplaytime;
     }
 	
 	public String toString(){
