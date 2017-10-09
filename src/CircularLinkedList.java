@@ -99,7 +99,7 @@ public class CircularLinkedList<T> implements MyList<T>{
 			current=nextone;
 			nextone=current.next;
 		}
-		return null;  //how can I return T for current instead of null?
+		return current.data;
 	}
 
 	@Override
@@ -143,7 +143,7 @@ public class CircularLinkedList<T> implements MyList<T>{
 		}
 		if (prevone!=null)
 			prevone.next=current.next;
-		return null;  //how can I return T for current instead of null?
+		return current.data;
 	}
 
 	@Override
@@ -160,12 +160,11 @@ public class CircularLinkedList<T> implements MyList<T>{
 				nextone=current.next;
 			}
 		} while (current!=head);
-		return null;  //how can I return T for current instead of null?
+		return current.data;
 	}
 
 	@Override
 	public boolean set(int index, T element) {
-		Node<T> myItem= Node<T>(element);
 		Node<T> prevone=null;
 		Node<T> current=head;
 		Node<T> nextone=head.next;
@@ -175,8 +174,7 @@ public class CircularLinkedList<T> implements MyList<T>{
 			nextone=current.next;
 		}
 		if (prevone!=null) {
-			prevone.next=myItem;
-			myItem.next=current;
+			current.data=element;
 			return true;
 		}
 		
@@ -212,13 +210,15 @@ public class CircularLinkedList<T> implements MyList<T>{
 
 	@Override
 	public T[] toArray() {
-		ArrayList myList = new ArrayList();
+		T[] myList = (T[]) new Object[size];
 		Node<T> current=head;
+		int mCount=0;
 		while (current.next!=head) {
-			myList.add(current);
+			myList[mCount]=current.data;
 			current=current.next;
+			mCount+=1;
 			}
-		return null;  //how can I return T[] for myList instead of null?
+		return myList;
 	}
 
 	@Override
@@ -244,20 +244,20 @@ public class CircularLinkedList<T> implements MyList<T>{
 
 	@Override
 	public boolean shift(int positions) {
-		ArrayList myList = new ArrayList();
+		@SuppressWarnings("unchecked")
+		Node<T>[] myList = (Node<T>[]) new Object[positions];
 		Node<T> current=head;
 		if (size()<positions || positions<0)
 			return false;
 		for (int i=0; i<positions; i++) {
-			myList.add(current);
+			myList[i]=current;
 			current=current.next;
 		}
-		for (int i=0; i<positions; i++) {
-			current=myList[i];
-			current.next=myList[i+1];
-			myList[i]=myList[i+1];
+		for (int i=positions; i<1; i--) {
+			myList[i-1]=myList[i];
 		}
-		return false;
+		myList[positions]=current;
+		return true;
 	}
 
 }
