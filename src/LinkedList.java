@@ -1,9 +1,9 @@
-
 public class LinkedList<T> implements MyList<T> {
 
 	private class Node<T> {
 		public T data;
 		public Node<T> next;
+
 		
 		public Node(T o) {
 			this.data = o;
@@ -13,6 +13,7 @@ public class LinkedList<T> implements MyList<T> {
 	private int size;
 	private Node<T> head;	
 	private Node<T> tail;
+	private T myItem;
 	
 	public LinkedList() {
 		size = 0;
@@ -75,8 +76,16 @@ public class LinkedList<T> implements MyList<T> {
 
 	@Override
 	public boolean contains(T o) {
-		
-		return false;
+		boolean flag = false;
+		for (int i = 0; i < size; i++) {
+			head = head.next;
+			if (head.data.equals(o)) {
+				flag = true;
+			} else {
+				flag = false;
+			}
+		}
+		return flag;
 	}
 
 	@Override
@@ -85,7 +94,8 @@ public class LinkedList<T> implements MyList<T> {
 		for(int i = 0; i < index; i++) {
 			current = current.next;
 		}
-		return current.data;
+		myItem = current.data;
+		return myItem;
 	}
 
 	@Override
@@ -129,17 +139,17 @@ public class LinkedList<T> implements MyList<T> {
 		}
 			current.data = null;
 			size--;
-		return null;
+		return current.data;
 	}
 
 	@Override
 	public T remove(T o) {
 		int index = indexOf(o);
-		if (index != -1) {
-			remove(index);
+		if (index == -1) {
+			myItem = null;//object is not in list;
 		}
-		
-		return null;
+			
+		return remove(index);
 	}
 
 	@Override
