@@ -1,12 +1,16 @@
 // text added 10/6/17
 public class Song {
 	private String name, artist;
-	private float playtime;
+	private double playtime;
 
 	
-	public Song(String mname, String martist, float mplaytime) {
-		String name=mname,artist=martist;
-		float playtime=mplaytime;
+	public Song(String mname, String martist, double mplaytime) {
+		String name, artist;
+		double playtime;
+		this.name=mname;
+		this.artist=martist;
+		this.playtime=mplaytime;
+//		System.out.println(this.toString());
     }
 	
 	public String toString(){

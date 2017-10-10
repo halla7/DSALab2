@@ -1,3 +1,4 @@
+
 public interface Playlist {
 
 	String playlistName();

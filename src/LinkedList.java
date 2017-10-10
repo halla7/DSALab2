@@ -1,3 +1,4 @@
+
 public class LinkedList<T> implements MyList<T> {
 //
 	private class Node<T> {
