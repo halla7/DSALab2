@@ -1,9 +1,12 @@
 
 public class CircularLinkedListPlayList implements Playlist{
 	private String name;
-	ArrayList<Song> playlist;
+	private CircularLinkedList<Song> list;
 	private float totalTime;
+
 	public CircularLinkedListPlayList(String name) {
+		this.name = name;
+		list = new CircularLinkedList<Song>();
 		
 	}
 	
@@ -14,45 +17,47 @@ public class CircularLinkedListPlayList implements Playlist{
 	}
 	
 	public boolean addSong(Song s) {
-		return playlist.add(s);
+//		return playlist.add(s);
+		return list.add(s);
 	}
 	
 	public boolean addSongAt(Song s, int index) {
-		return playlist.add(index, s);
+		return list.add(index, s);
 	}
 	
 	public Song getSongAt(Song s, int index) {
-		return playlist.get(index);
+		return list.get(index);
 	}
 	
 	public ArrayList<Song> getList() {
-		return playlist;
+		return null;
 	}
 	
 	public boolean removeSong(Song s) {
-		playlist.remove(s);
+		list.remove(s);
 	
 		return true;
 	}
 	
 	public int totalSongs() {
-		return playlist.size();
+		return list.size();
 	}
 	
-	public float playlistTime() {
-		for(int i = 0; i < playlist.size(); i++) {
-			totalTime += playlist.get(i).getPlayTime();
+	public double playlistTime() {
+		for(int i = 0; i < list.size(); i++) {
+			totalTime += list.get(i).getPlayTime();
 		}
 		return totalTime;
 	}
 	
-	public boolean isSongInPlaylist(String name, String artist) {
+	public boolean isSongInPlaylist(String name) {
 		boolean flag = false;
-		for (int i = 0; i < playlist.size(); i++) {
-			if(playlist.get(i).getSongName().equals(name) || playlist.get(i).getArtist().equals(artist)) {
+		for (int i = 0; i < list.size(); i++) {
+			if(list.get(i).getSongName()==name) {
 				flag = true;
 			} else {
 				flag = false;
+//				System.out.println(list.get(i).getSongName()+" : "+name);
 			}
 		}
 		return flag;
@@ -60,9 +65,9 @@ public class CircularLinkedListPlayList implements Playlist{
 	}
 	
 	public void songsByArtist(String name) {
-		for (int i = 0; i < playlist.size(); i++) {
-			if(playlist.get(i).equals(name)) {
-				System.out.println(playlist.get(i).getSongName());
+		for (int i = 0; i < list.size(); i++) {
+			if(list.get(i).equals(name)) {
+				System.out.println(list.get(i).getSongName());
 			}
 		}
 	}
@@ -70,21 +75,20 @@ public class CircularLinkedListPlayList implements Playlist{
 	@Override 
 	public boolean addSongsFrom(ArrayList<Song> p) {
 		for(int i = 0; i < p.size(); i++) {
-			playlist.add(p.get(i));
+			list.add(p.get(i));
 		}
 		return false;
 	}
 	
 	public void MoveSong(Song s, int index) {
-		if (playlist.contains(s)) {
-			playlist.set(index, s);
+		if (list.contains(s)) {
+			list.set(index, s);
 		}
 		
 	}
 	
 	public void MoveAllSongs(int positions) {
-		playlist.shift(positions);
+		list.shift(positions);
 	}
 
 }
-

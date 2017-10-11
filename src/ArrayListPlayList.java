@@ -1,11 +1,13 @@
-
 public class ArrayListPlayList implements Playlist{
 
 	private String name;
 	ArrayList<Song> playlist;
-	private float totalTime;
+	private double totalTime;
+	
 	public ArrayListPlayList(String name) {
-		
+		this.name = name;
+		playlist = new ArrayList<Song>();
+		totalTime = 0;
 	}
 	
 	@Override
@@ -40,18 +42,19 @@ public class ArrayListPlayList implements Playlist{
 		return playlist.size();
 	}
 	
-	public float playlistTime() {
+	public double playlistTime() {
 		for(int i = 0; i < playlist.size(); i++) {
-			totalTime += playlist.get(i).getPlayTime();
+			totalTime = totalTime + playlist.get(i).getPlayTime();
 		}
 		return totalTime;
 	}
 	
-	public boolean isSongInPlaylist(String name, String artist) {
+	public boolean isSongInPlaylist(String name) {
 		boolean flag = false;
 		for (int i = 0; i < playlist.size(); i++) {
-			if(playlist.get(i).getSongName().equals(name) || playlist.get(i).getArtist().equals(artist)) {
+			if(playlist.get(i).getSongName().equals(name)) {
 				flag = true;
+				i = playlist.size();
 			} else {
 				flag = false;
 			}
@@ -62,8 +65,10 @@ public class ArrayListPlayList implements Playlist{
 	
 	public void songsByArtist(String name) {
 		for (int i = 0; i < playlist.size(); i++) {
-			if(playlist.get(i).equals(name)) {
+			if(playlist.get(i).getArtist().equals(name)) {
 				System.out.println(playlist.get(i).getSongName());
+			} else {
+				System.out.println("There are no songs by " + name + "in this playlist.");
 			}
 		}
 	}
@@ -87,9 +92,5 @@ public class ArrayListPlayList implements Playlist{
 		playlist.shift(positions);
 	}
 
-
-
-	
-	
 	
 }

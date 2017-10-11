@@ -1,4 +1,3 @@
-
 public interface Playlist {
 
 	String playlistName();
@@ -15,9 +14,9 @@ public interface Playlist {
 	
 	int totalSongs();
 	
-	float playlistTime();
+	double playlistTime();
 	
-	boolean isSongInPlaylist(String name, String artist);
+	boolean isSongInPlaylist(String name);
 	
 	void songsByArtist(String name);
 	
@@ -26,7 +25,5 @@ public interface Playlist {
 	void MoveSong(Song s, int position);
 	
 	void MoveAllSongs(int positions);
-	
-	
 	
 }

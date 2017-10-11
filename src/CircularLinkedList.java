@@ -12,14 +12,22 @@ public class CircularLinkedList<T> implements MyList<T>{
 	private int size;
 	private Node<T> head;	
 	private Node<T> tail;
+	private String name;
 	
 	public CircularLinkedList() {
 		
 	}
 	
+	public CircularLinkedList(String name) {
+		this.name = name;
+		CircularLinkedList<Song> list;
+		list = new CircularLinkedList<Song>();
+		
+	}
+
 	@Override
 	public boolean add(int index, T t) {
-		if (index < 1 || index < size) {
+		if (index < 1 || index > size) {
 			throw new
 			IndexOutOfBoundsException(index + " < 0 or >= " + size);
 		} else if (index == size) {
@@ -54,12 +62,12 @@ public class CircularLinkedList<T> implements MyList<T>{
 		
 		if(size == 0) {
 			head = n;
-			tail = n;
-			tail.next =n;
+			tail = head;
+			tail.next =head;
 		} else {
-			Node<T> after=tail.next;
+//			tail.next=n
 			tail = n;
-			tail.next=after;
+			tail.next=head;
 		}
 		
 		size++;
@@ -98,6 +106,7 @@ public class CircularLinkedList<T> implements MyList<T>{
 		for (int i=0; i<index; i++) {
 			current=nextone;
 			nextone=current.next;
+//			System.out.println(current.data.toString());
 		}
 		return current.data;
 	}
@@ -183,12 +192,12 @@ public class CircularLinkedList<T> implements MyList<T>{
 
 	@Override
 	public int size() {
-		size=0;
-		Node<T> current=head;
-		while (current.next!=head) {
-			current=current.next;
-			size+=1;
-			}
+//		size=0;
+//		Node<T> current=head;
+//		while (current.next!=head) {
+//			current=current.next;
+//			size+=1;
+//			}
 		return size;
 	}
 
